@@ -12,7 +12,7 @@ DIR2=$DIR"/\.[^\.]*"
 
 # create location to backup old dotfiles 
 backup_identifier=$(hostname)_$(date +%s)
-backup_storage_location=$DIR/$backup_identifier
+backup_storage_location=$DIR/"backups"/$backup_identifier
 mkdir -v "$backup_storage_location"
 
 # for every dotfile in the dotfiles directory, move the original dotfile from the home directory to the backup directory & then link the dotfile into place
