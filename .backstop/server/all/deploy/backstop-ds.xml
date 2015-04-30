@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  JBoss Server Configuration                                           -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+
+<!-- $Id: backstop-ds.xml,v 1.16 2004/10/19 15:57:09 atillman Exp $ -->
+
+
+
+<datasources>
+<xa-datasource>
+    <jndi-name>jdbc/BackstopPool</jndi-name>
+    <track-connection-by-tx/>
+    <isSameRM-override-value>false</isSameRM-override-value>
+    <xa-datasource-class>oracle.jdbc.xa.client.OracleXADataSource</xa-datasource-class>
+    <xa-datasource-property name="URL">jdbc:oracle:oci:@scooter:1521:devu</xa-datasource-property>
+    <xa-datasource-property name="User">bsg_zombie_10_21T13_15_14</xa-datasource-property> 
+<!--    <xa-datasource-property name="User">brian3rdparty</xa-datasource-property> --> 
+    <min-pool-size>5</min-pool-size>
+    <max-pool-size>50</max-pool-size>
+    <xa-datasource-property name="Password">password</xa-datasource-property>
+    <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+    <no-tx-separate-pools/>
+  </xa-datasource>
+
+<xa-datasource>
+    <jndi-name>jdbc/JmsPool</jndi-name>
+    <track-connection-by-tx/>
+    <isSameRM-override-value>false</isSameRM-override-value>
+    <xa-datasource-class>oracle.jdbc.xa.client.OracleXADataSource</xa-datasource-class>
+    <xa-datasource-property name="URL">jdbc:oracle:oci:@scooter:1521:devu</xa-datasource-property>
+    <xa-datasource-property name="User">bsg_zombie_10_05T11_58_14</xa-datasource-property> 
+<!--    <xa-datasource-property name="User">brian3rdparty</xa-datasource-property> --> 
+    <xa-datasource-property name="Password">password</xa-datasource-property>
+    <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
+    <no-tx-separate-pools/>
+  </xa-datasource>
+<!--
+  <local-tx-datasource>
+    <jndi-name>jdbc/FullMessagesPool</jndi-name>
+    <connection-url>jdbc:mysql://wayne/fullmessages_alpha2</connection-url>
+    <driver-class>com.mysql.jdbc.Driver</driver-class>
+    <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+    <user-name>fm_alpha</user-name>
+    <password>fm_alpha</password>
+    <min-pool-size>5</min-pool-size>
+    <prepared-statement-cache-size>1000</prepared-statement-cache-size>
+  </local-tx-datasource>
+
+<local-tx-datasource>
+    <jndi-name>jdbc/JmsPool</jndi-name>
+    <connection-url>jdbc:mysql://wayne/jms_wanda</connection-url>
+    <driver-class>com.mysql.jdbc.Driver</driver-class>
+    <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+    <user-name>jms</user-name>
+    <password>thisisstillwhollyunnecessary</password>
+    <min-pool-size>5</min-pool-size>
+    <max-pool-size>40</max-pool-size>
+    <prepared-statement-cache-size>1000</prepared-statement-cache-size>
+</local-tx-datasource>
+
+
+<transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+    <min-pool-size>5</min-pool-size>
+    <max-pool-size>120</max-pool-size>
+        <prepared-statement-cache-size>1000</prepared-statement-cache-size>
+  <idle-timeout-minutes>1</idle-timeout-minutes>
+  </local-tx-datasource>
+-->
+</datasources>
+
+

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  Log4j Configuration                                                  -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+<!-- $Id: log4j.xml,v 1.6 2004/02/19 23:41:52 rapruitt Exp $ -->
+
+<!--
+   | For more configuration infromation and examples see the Jakarta Log4j
+   | owebsite: http://jakarta.apache.org/log4j
+ -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+  <!-- ================================= -->
+  <!-- Preserve messages in a local file -->
+  <!-- ================================= -->
+
+  <!-- A time/date based rolling appender -->
+  <appender name="FILE" class="org.jboss.logging.appender.DailyRollingFileAppender">
+    <param name="File" value="${jboss.server.home.dir}/log/server.log"/>
+    <param name="Append" value="false"/>
+
+    <!-- Rollover at midnight each day -->
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+
+    <!-- Rollover at the top of each hour
+    <param name="DatePattern" value="'.'yyyy-MM-dd-HH"/>
+    -->
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- The default pattern: Date Priority [Category] Message\n -->
+      <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
+
+      <!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n
+      <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
+       -->
+    </layout>	    
+  </appender>  
+<appender name="SYNCING" class="org.jboss.logging.appender.DailyRollingFileAppender">
+      <param name="Append" value="true"/>
+      <param name="File" value="${jboss.server.home.dir}/log/syncing.log"/>
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+      <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{MM/dd/yyyy HH:mm:ss} %-5p %t [%c{1}] %m%n"/>
+      </layout>
+    </appender>
+
+<appender name="ACTIVITY" class="org.jboss.logging.appender.DailyRollingFileAppender">
+      <param name="Append" value="true"/>
+      <param name="File" value="${jboss.server.home.dir}/log/SystemActivity.log"/>
+      <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%m%n"/>
+      </layout>
+</appender>
+
+<appender name="SYSLOG_1" class="org.apache.log4j.net.SyslogAppender">
+	<param name="Facility" value="LOCAL3"/>
+	<param name="syslogHost" value="TINKERTOY"/>
+	<layout class="org.apache.log4j.PatternLayout">
+        	<param name="ConversionPattern" value="%d{MM/dd/yyyy HH:mm:ss} %-5p %t [%c{1}] %m%n"/>
+	</layout>
+</appender> 
+ 
+
+<appender name="SYSLOG_2" class="org.apache.log4j.net.SyslogAppender">
+	<param name="Facility" value="LOCAL4"/>
+	<param name="syslogHost" value="TINKERTOY"/>
+	<layout class="org.apache.log4j.PatternLayout">
+        	<param name="ConversionPattern" value="%d{MM/dd/yyyy HH:mm:ss} %-5p %t [%c{1}] %m%n"/>
+	</layout>
+</appender> 
+  <!-- ============================== -->
+  <!-- Append messages to the console -->
+  <!-- ============================== -->
+
+  <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+    <param name="Target" value="System.out"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- The default pattern: Date Priority [Category] Message\n -->
+      <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n"/>
+    </layout>
+  </appender>
+
+
+    <appender name="AuditLog" class="org.jboss.logging.appender.DailyRollingFileAppender">
+      <param name="Append" value="true"/>
+      <param name="File" value="${jboss.server.home.dir}/log/audit_xml.log"/>
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%m"/>
+      </layout>
+    </appender>
+
+    <appender name="AuditLog" class="org.apache.log4j.FileAppender">
+      <param name="Append" value="false"/>
+      <param name="File" value="${jboss.server.home.dir}/log/audit_xml.log"/>
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%m"/>
+      </layout>
+    </appender>
+
+    <appender name="PerfMon" class="org.jboss.logging.appender.DailyRollingFileAppender">
+	    <param name="Append" value="false"/>
+	    <param name="File" value="${jboss.server.home.dir}/log/perfmon.log"/>
+            <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+	    <layout class="org.apache.log4j.PatternLayout">
+		    <param name="ConversionPattern" value="&quot;%d&quot;,%m%n"/>
+	    </layout>
+    </appender>
+
+  <!-- ================ -->
+  <!-- Limit categories -->
+  <!-- ================ -->
+
+  <!-- Limit OS package categories to WARN   -->
+  <category name="com.backstopsolutions">
+      <priority value="DEBUG"/>
+	<appender-ref ref="SYSLOG_1"/>
+  </category>
+  <category name="SyncingCategory">
+     <priority value="INFO"/>
+     <appender-ref ref="SYNCING"/>
+   </category>
+
+  <category name="ActivityLog">
+     <priority value="INFO"/>
+     <appender-ref ref="ACTIVITY"/>
+  </category>
+
+  <category name="com.backstopsolutions.common.utils.PerfMon">
+	  <priority value="TRACE"/>
+	  <appender-ref ref="PerfMon"/>
+  </category>
+
+  <category name="EmailImportStatus">
+	  <priority value="TRACE"/>
+	  <appender-ref ref="CONSOLE"/>
+  </category>
+
+  <category name="SyncingCategory">
+	  <priority value="TRACE"/>
+	  <appender-ref ref="CONSOLE"/>
+  </category>
+
+<!--  -->
+<category name="org.hibernate.SQL">
+    <priority value="WARN"/>
+    <appender-ref ref="CONSOLE"/>
+
+  </category>
+<!-- -->
+    <category name="AuditLogCategory">
+        <priority value="ERROR"/>
+        <appender-ref ref="AuditLog"/>
+    </category>
+
+    <category name="org.apache.velocity">
+      <priority value="DEBUG" />      
+    </category>
+  
+    <category name="org.jboss.ejb.EJBDeployer">
+      <priority value="INFO" />      
+    </category>
+     
+    <category name="org.jboss.deployment.EARDeployer">
+      <priority value="INFO" />      
+      <appender-ref ref="SYSLOG_2"/>
+  </category>
+  
+    <category name="org.jboss.system.server.Server">
+      <priority value="INFO" />       
+  </category>
+  <category name="com.backstopsolutions.fundbutter.fundaccounting.allocation.PartnershipAccountingRunner.showFinalEquations">
+    <priority value="ERROR"/>
+  </category>
+
+  <!-- Limit OS package categories to WARN   -->
+  <category name="org">
+    <priority value="INFO"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="CONSOLE"/>
+  </category>
+
+   <category name="com" >
+       <priority value="WARN"/>
+       <appender-ref ref="CONSOLE"/>
+       <appender-ref ref="FILE"/>
+    </category>
+
+<category name="org.sourceforge.uptodater">
+      <priority value="DEBUG"/>	  
+  </category>
+
+  <!-- ======================= -->
+  <!-- Setup the Root category -->
+  <!-- ======================= -->
+
+  <root>
+  </root>
+
+   
+  
+</log4j:configuration>

@@ -1,0 +1,20 @@
+# Backstop run.sh options
+# Available options: debug assert cluster acct gc yk
+# BS_OPT="debug assert acct jr" 
+# BS_OPT="debug assert acct"
+BS_OPT="debug acct"
+#BS_OPT="assert acct"
+#_JR_="/Users/dholman/dev/backstop/app/javarebel"
+# JVM heap parameters
+BS_HEAPMAX="8192m"
+BS_HEAPMIN="8192m"
+#BS_PERMGENMAX="384m"
+
+# My IP address
+BS_WHOAMI=`hostname`
+
+# Clustering parameters
+# BS_CLUSTER_NAME="GreatJustice"
+# BS_MULTICAST_ADDR="239.0.42.170"
+
+JAVA_OPTS="-Xloggc:$JBOSS_HOME/logs/gc.log -Djava.protocol.handler.pkgs=com.backstopsolutions.jcifs"

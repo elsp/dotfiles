@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
+        <property name="gridName" value="hibernate-grid"/>
+        <property name="metricsLogFrequency" value="0"/>
+
+        <property name="cacheConfiguration">
+            <list>
+                <bean class="org.apache.ignite.configuration.CacheConfiguration">
+                    <property name="cacheMode" value="LOCAL"/>
+                    <property name="atomicityMode" value="TRANSACTIONAL"/>
+                    <property name="writeSynchronizationMode" value="FULL_ASYNC"/>
+                    <property name="name" value="com.backstopsolutions.fundbutter.fundaccounting.portfolio.entity.HoldingTransactionEntity"/>
+                    <property name="evictionPolicy">
+                      <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
+                        <property name="maxSize" value="1000000"/>
+                      </bean>
+                    </property>
+                </bean>
+                <bean class="org.apache.ignite.configuration.CacheConfiguration">
+                    <property name="cacheMode" value="LOCAL"/>
+                    <property name="atomicityMode" value="TRANSACTIONAL"/>
+                    <property name="writeSynchronizationMode" value="FULL_ASYNC"/>
+                    <property name="name" value="com.backstopsolutions.fundbutter.fundaccounting.portfolio.entity.HoldingEntity"/>
+                    <property name="evictionPolicy">
+                      <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
+                        <property name="maxSize" value="100000"/>
+                      </bean>
+                    </property>
+                </bean>
+                <bean class="org.apache.ignite.configuration.CacheConfiguration">
+                    <property name="cacheMode" value="LOCAL"/>
+                    <property name="atomicityMode" value="TRANSACTIONAL"/>
+                    <property name="writeSynchronizationMode" value="FULL_ASYNC"/>
+                    <property name="name" value="com.backstopsolutions.fundbutter.fundaccounting.portfolio.entity.HoldingEntity.holdingTransactions"/>
+                    <property name="evictionPolicy">
+                      <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
+                        <property name="maxSize" value="100000"/>
+                      </bean>
+                    </property>
+                </bean>
+                <bean class="org.apache.ignite.configuration.CacheConfiguration">
+                    <property name="cacheMode" value="LOCAL"/>
+                    <property name="atomicityMode" value="TRANSACTIONAL"/>
+                    <property name="writeSynchronizationMode" value="FULL_ASYNC"/>
+                    <property name="name" value="com.backstopsolutions.fundbutter.fundaccounting.portfolio.entity.HoldingEntity.finalBalancesRaw"/>
+                    <property name="evictionPolicy">
+                      <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
+                        <property name="maxSize" value="100000"/>
+                      </bean>
+                    </property>
+                </bean>
+                <bean class="org.apache.ignite.configuration.CacheConfiguration">
+                    <property name="cacheMode" value="LOCAL"/>
+                    <property name="atomicityMode" value="TRANSACTIONAL"/>
+                    <property name="writeSynchronizationMode" value="FULL_ASYNC"/>
+                    <property name="name" value="com.backstopsolutions.fundbutter.fundaccounting.portfolio.entity.HoldingEntity.estimatesRaw"/>
+                    <property name="evictionPolicy">
+                      <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
+                        <property name="maxSize" value="100000"/>
+                      </bean>
+                    </property>
+                </bean>
+                <bean class="org.apache.ignite.configuration.CacheConfiguration">
+                    <property name="cacheMode" value="LOCAL"/>
+                    <property name="atomicityMode" value="TRANSACTIONAL"/>
+                    <property name="writeSynchronizationMode" value="FULL_ASYNC"/>
+                    <property name="name" value="com.backstopsolutions.fundbutter.fundaccounting.portfolio.entity.HoldingBalanceEntity"/>
+                    <property name="evictionPolicy">
+                      <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicy">
+                        <property name="maxSize" value="1000000"/>
+                      </bean>
+                    </property>
+                </bean>
+            </list>
+        </property>
+
+        <property name="gridLogger">
+            <bean class="org.apache.ignite.logger.log4j.Log4JLogger"/>
+        </property>
+    </bean>
+</beans>

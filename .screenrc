@@ -1,0 +1,25 @@
+# invoke with backtick
+escape ``
+#
+# Tab bar
+hardstatus off
+hardstatus alwayslastline
+hardstatus string "%{+b wk} %-w%{+b wk} %n %t %{-}%+w %41=%H @ %l %-= %= %D,%c:%s "
+#
+#
+# To clear the screen after closing some programs
+#
+altscreen on
+#
+# Programs opening by default
+#
+screen -t "bash" 1 
+#
+# Keys
+#
+bindkey -k k; quit
+#
+# Do not show startup message
+#
+startup_message off
+defscrollback 32000
