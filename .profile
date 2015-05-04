@@ -20,13 +20,21 @@ export JBOSS_HOME=/Users/dholman/dev/jboss/
 export GRIDGAIN_HOME=/Users/dholman/dev/gridgain/
 
 # ant
+export FB_BUILD_FILE_LOCATION="/Users/dholman/dev/backstop/app"
 export ANT_OPTS="-Xms512m -Xmx2048m"
+export ANT_BASE_COMMAND="ant -f $FB_BUILD_FILE_LOCATION -lib antlib/lib -nice 10 -Dskip-cdn=moo -Dskip-minify=moo -Dskip-javadoc=moo"
+# old style, preserved because of sad old muscle memories
 alias deploy='quick_deploy'
-alias quick_jr_deploy='ant -lib antlib/lib -nice 10 -Dskip-cdn=moo -Dskip-minify=moo java-rebel-dirty'
-alias full_jr_deploy='ant -lib antlib/lib -nice 10 -Dskip-cdn=moo -Dskip-minify=moo java-rebel-full'
-alias jsp_deploy='ant -lib antlib/lib -nice 10 deploy-jsp'
-alias full_deploy='ant -lib antlib/lib -nice 10 -Dskip-cdn=moo -Dskip-minify=moo full-build-deploy-compile-time-weaving'
-alias test='ant -lib antlib/lib -nice 10 full-build-test'
+alias quick_jr_deploy='$ANT_BASE_COMMAND java-rebel-dirty'
+alias full_jr_deploy='$ANT_BASE_COMMAND java-rebel-full'
+alias jsp_deploy='$ANT_BASE_COMMAND deploy-jsp'
+alias full_deploy='$ANT_BASE_COMMAND full-build-deploy-compile-time-weaving'
+alias test='$ANT_BASE_COMMAND full-build-test'
+# new style, we should use these!
+alias deploy_fb='$ANT_BASE_COMMAND full_build_test'
+alias jsp_deploy_fb='$ANT_BASE_COMMAND deploy-jsp'
+alias test_fb='$ANT_BASE_COMMAND full-build-test'
+
 
 # tomcat	
 export TOMCAT_HOME="/usr/local/apache-tomcat-6.0.26"
