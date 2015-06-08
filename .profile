@@ -18,6 +18,7 @@ alias bslj='vim ~/.backstop/server/backstop/conf/jboss-log4j.xml'
 export BS_HEAPMAX=4G
 export JBOSS_HOME=/Users/dholman/dev/jboss/
 export GRIDGAIN_HOME=/Users/dholman/dev/gridgain/
+export IGNITE_HOME=$JBOSS_HOME'/server/backstop/conf'
 
 # ant
 export FB_BUILD_FILE_LOCATION="/Users/dholman/dev/backstop/app"
