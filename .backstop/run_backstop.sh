@@ -17,7 +17,7 @@ if [ -e $JBOSS_HOME/server/backstop/log/server.log ]; then
 		~/.backstop/run_backstop.sh $@	
 	else
 		echo ""
-		fortune -a | ponysay -n -b
+		fortune -a | ponysay 
 		echo ""
 	fi
 fi
